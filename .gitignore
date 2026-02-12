@@ -12,7 +12,7 @@ node_modules/
 .DS_Store
 
 # Uploads (fotos)
-backend/uploads/
+backend/src/uploads/
 
 # Base de datos dumps
 *.sql
