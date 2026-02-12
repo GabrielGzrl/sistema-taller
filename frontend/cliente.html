@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consulta de Orden - Cliente</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .client-wrap { max-width: 900px; margin: 30px auto; padding: 0 16px; }
+    .client-head { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .pill { padding:6px 10px; border-radius:999px; background:#eef2ff; display:inline-block; font-weight:600; }
+    .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 720px){ .grid2{ grid-template-columns: 1fr; } }
+    .gal { display:flex; gap:10px; flex-wrap:wrap; }
+    .gal img { width:140px; height:140px; object-fit:cover; border-radius:10px; border:1px solid #e5e7eb; }
+    .muted { opacity:.75; }
+    .err { color:#b91c1c; font-weight:600; }
+    .ok  { color:#15803d; font-weight:600; }
+    input { width:100%; }
+  </style>
+</head>
+
+<body>
+  <div class="client-wrap">
+    <div class="client-head">
+      <h1>Consulta de orden</h1>
+      <div class="pill" id="statusPill">Estatus: —</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Ingresa tus datos</div>
+      <div class="grid2">
+        <div>
+          <label class="muted">Folio</label>
+          <input id="folio" placeholder="SERV..." />
+        </div>
+        <div>
+          <label class="muted">PIN</label>
+          <input id="pin" placeholder="****" type="password" />
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button onclick="buscarOrdenCliente()">Ver mi orden</button>
+        <span id="msg" class="muted"></span>
+      </div>
+    </div>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script src="cliente.js"></script>
+</body>
+</html>

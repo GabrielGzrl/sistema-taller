@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Servicios de la Orden</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+ 
+
+  <button onclick="window.location.href='index.html'">
+    ⬅ Volver
+  </button>
+
+  <h1>Agregar servicios</h1>
+
+  <div class="card">
+    <h3>Seleccionar orden</h3>
+    <select id="orden_id">
+      <option value="">Cargando órdenes...</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3>Nuevo servicio</h3>
+
+    <input id="descripcion" placeholder="Descripción del servicio" />
+    <input id="cantidad" type="number" placeholder="Cantidad" value="1" min="1" />
+    <input id="precio" type="number" step="0.01" placeholder="Precio unitario" min="0" />
+
+    <button onclick="agregarServicio()">Agregar servicio</button>
+
+    <p id="msg"></p>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <h3 style="margin:0;">Servicios agregados</h3>
+      <button onclick="actualizarTotalesDesdeUI()">
+        🔄 Recalcular totales
+      </button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Cant.</th>
+          <th>Precio</th>
+          <th>Importe</th>
+        </tr>
+      </thead>
+      <tbody id="tablaServicios"></tbody>
+    </table>
+
+    <div style="margin-top: 15px;">
+      <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
+      <p><strong>IVA (16%):</strong> $<span id="impuestos">0.00</span></p>
+      <p><strong>Total:</strong> $<span id="total">0.00</span></p>
+    </div>
+  </div>
+
+  <script src="servicios.js"></script>
+</body>
+</html>

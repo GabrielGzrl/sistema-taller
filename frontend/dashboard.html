@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Taller</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<script>
+  if (!localStorage.getItem('token')) window.location.href = 'login.html';
+</script>
+
+<div class="dash">
+  <aside class="sidebar">
+    <div class="brand">🚗 Taller</div>
+
+    <button class="navbtn active" data-view="view-vin">🔎 Buscar VIN</button>
+    <button class="navbtn" data-view="view-clientes">👤 Clientes</button>
+    <button class="navbtn" data-view="view-vehiculos">🚙 Vehículos</button>
+    <button class="navbtn" data-view="view-ordenes">🧾 Órdenes</button>
+    <button class="navbtn" data-view="view-servicios">🛠 Servicios</button>
+    <button class="navbtn" data-view="view-usuarios" id="btn-usuarios">👤 Usuarios</button>
+
+    <div class="spacer"></div>
+    <button class="navbtn logout" onclick="logout()">⛔ Cerrar sesión</button>
+  </aside>
+
+  <main class="content">
+
+    <!-- VIN -->
+    <section id="view-vin" class="view active">
+      <h1>Buscar vehículo por VIN</h1>
+
+      <div class="card">
+        <div class="section-title">VIN</div>
+        <div class="row">
+          <input type="text" id="vinInput" placeholder="Ej: JN8BT27T3HW523361">
+          <button onclick="buscarVIN()">Buscar</button>
+        </div>
+      </div>
+
+      <div id="resultado"></div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="view-clientes" class="view">
+      <h1>Clientes</h1>
+      <div class="card">
+        <div class="section-title">Nuevo cliente</div>
+        <div class="grid">
+          <input id="cli_nombre" placeholder="Nombre completo">
+          <input id="cli_telefono" placeholder="Teléfono">
+          <input id="cli_email" placeholder="Email">
+        </div>
+        <button onclick="crearCliente()">Guardar cliente</button>
+        <p id="cli_msg"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Lista de clientes</div>
+        <div id="cli_list"></div>
+      </div>
+    </section>
+
+    <!-- VEHICULOS -->
+    <section id="view-vehiculos" class="view">
+      <h1>Vehículos</h1>
+
+      <div class="card">
+        <div class="section-title">Nuevo vehículo</div>
+        <div class="grid">
+          <input id="veh_vin" placeholder="VIN">
+          <input id="veh_marca" placeholder="Marca">
+          <input id="veh_modelo" placeholder="Modelo">
+          <input id="veh_anio" placeholder="Año">
+          <input id="veh_color" placeholder="Color">
+          <input id="veh_placas" placeholder="Placas">
+          <input id="veh_kms" placeholder="Kilometraje (ej 58430)">
+          <select id="veh_cliente_id"></select>
+        </div>
+
+        <button onclick="crearVehiculo()">Guardar vehículo</button>
+        <p id="veh_msg"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Lista de vehículos</div>
+        <div id="veh_list"></div>
+      </div>
+    </section>
+
+    <!-- ORDENES -->
+    <section id="view-ordenes" class="view">
+      <h1>Órdenes</h1>
+
+      <div class="card">
+        <div class="section-title">Crear orden</div>
+        <div class="grid">
+          <select id="ord_vehiculo_id"></select>
+          <input id="ord_comentarios" placeholder="Comentarios (opcional)">
+        </div>
+        <button onclick="crearOrden()">Crear orden</button>
+        <p id="ord_msg"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Órdenes recientes</div>
+        <div id="ord_list"></div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="view-servicios" class="view">
+      <h1>Servicios</h1>
+
+      <div class="card">
+        <div class="section-title">Seleccionar orden</div>
+        <select id="srv_orden_id"></select>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Nuevo servicio</div>
+        <div class="grid">
+          <input id="srv_desc" placeholder="Descripción">
+          <input id="srv_cant" type="number" value="1" min="1">
+          <input id="srv_precio" type="number" step="0.01" placeholder="Precio unitario">
+        </div>
+        <button onclick="agregarServicio()">Agregar servicio</button>
+        <p id="srv_msg"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Servicios agregados</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Descripción</th>
+              <th>Cant.</th>
+              <th>Precio</th>
+              <th>Importe</th>
+            </tr>
+          </thead>
+          <tbody id="srv_tabla"></tbody>
+        </table>
+        <div class="card">
+  <div class="section-title">Estatus de la orden</div>
+  <div class="row">
+    <select id="ord_estatus">
+      <option value="recibido">Recibido</option>
+      <option value="en_proceso">En proceso</option>
+      <option value="listo">Listo</option>
+      <option value="entregado">Entregado</option>
+    </select>
+    <button onclick="guardarEstatus()">Guardar estatus</button>
+  </div>
+  <p id="estatus_msg"></p>
+</div>
+
+<div class="card">
+  <div class="section-title">Evidencia fotográfica (Antes / Después)</div>
+
+  <div class="row">
+    <select id="foto_tipo">
+      <option value="antes">Antes</option>
+      <option value="despues">Después</option>
+    </select>
+
+    <input type="file" id="foto_file" accept="image/*" />
+    <button onclick="subirFotoOrden()">Subir foto</button>
+  </div>
+
+  <p id="foto_msg"></p>
+
+  <div id="galeria_fotos"></div>
+</div>
+
+        <div class="totals">
+          <div><strong>Subtotal:</strong> $<span id="srv_subtotal">0.00</span></div>
+          <div><strong>IVA (16%):</strong> $<span id="srv_iva">0.00</span></div>
+          <div><strong>Total:</strong> $<span id="srv_total">0.00</span></div>
+        </div>
+
+        <div class="row">
+          <button onclick="recalcularTotales()">🔄 Recalcular</button>
+          <button onclick="abrirPdfPro()">📄 PDF PRO</button>
+          <button onclick="copiarLinkCliente()">🔗 Copiar link cliente</button>
+        </div>
+        <div class="card" style="margin-top:12px;">
+  <div class="section-title">Acceso Cliente</div>
+
+  <div class="row" style="gap:10px; align-items:center;">
+    <input id="pin_cliente" type="password" placeholder="PIN (mínimo 4 dígitos)" style="max-width:240px;">
+    <button onclick="configurarPinCliente()">🔐 Guardar PIN</button>
+    <button onclick="copiarLinkCliente()">🔗 Copiar link cliente</button>
+  </div>
+
+  <div id="pin_msg" class="muted" style="margin-top:8px;"></div>
+</div>
+      </div>
+    </section>
+        <!-- USUARIOS (solo admin) -->
+    <section id="view-usuarios" class="view">
+      <h1>Usuarios</h1>
+
+      <div class="card">
+        <div class="section-title">Crear usuario</div>
+
+        <div class="grid">
+          <input id="usr_nombre" placeholder="Nombre">
+          <input id="usr_email" type="email" placeholder="Email">
+          <input id="usr_password" type="password" placeholder="Password">
+          <select id="usr_rol">
+            <option value="empleado">empleado</option>
+            <option value="admin">admin</option>
+          </select>
+        </div>
+
+        <button onclick="crearUsuario()">Crear usuario</button>
+        <p id="usr_msg"></p>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Lista de usuarios</div>
+        <div id="usr_list">Cargando...</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

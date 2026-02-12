@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Abrir PDF PRO</title>
+</head>
+<body>
+  <h2>Abrir PDF PRO</h2>
+
+  <input id="ordenId" placeholder="ID orden (ej. 2)" />
+  <button onclick="abrir()">Abrir PDF</button>
+
+  <script>
+    async function abrir() {
+    const ordenId = document.getElementById('ordenId').value.trim();
+    const token = localStorage.getItem('token');
+
+    if (!ordenId || isNaN(ordenId)) {
+      alert('Pon un ID de orden válido');
+      return;
+    }
+
+    if (!token) {
+      alert('No hay token. Inicia sesión primero.');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const res = await fetch(
+      `http://localhost:3000/api/pdf-pro/orden/${ordenId}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    if (!res.ok) {
+      const txt = await res.text();
+      alert('Error: ' + txt);
+      return;
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+  }
+  </script>
+</body>
+</html>

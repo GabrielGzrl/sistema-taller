@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Taller</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button onclick="logout()" class="logout-btn">
+    Cerrar sesión
+  </button>
+
+  <div class="container">
+    <h1>Sistema de Taller</h1>
+
+    <div class="card">
+      <div class="section-title">Buscar vehículo por VIN</div>
+      <input type="text" id="vinInput" placeholder="Ej: JN8BT27T3HW523361">
+      <button onclick="buscarVIN()">Buscar</button>
+    </div>
+
+    <div id="resultado"></div>
+  </div>
+
+  <!-- SOLO UN SCRIPT -->
+  <script src="app.js"></script>
+</body>
+</html>

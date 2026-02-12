@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Órdenes de Servicio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+  if (!localStorage.getItem('token')) {
+    window.location.href = 'login.html';
+  }
+</script>
+
+<button onclick="window.location.href='index.html'">
+  ⬅ Volver
+</button>
+
+<h1>Nueva orden de servicio</h1>
+
+<div class="card">
+  <h3>Seleccionar vehículo</h3>
+
+  <select id="vehiculo_id"></select>
+
+  <textarea id="comentarios" placeholder="Comentarios del servicio"></textarea>
+
+  <button onclick="crearOrden()">Crear orden</button>
+
+  <p id="msg"></p>
+</div>
+
+<script src="ordenes.js"></script>
+</body>
+</html>

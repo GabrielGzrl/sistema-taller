@@ -1,0 +1,22 @@
+# Node
+node_modules/
+
+# Variables de entorno
+.env
+.env.*
+
+# Logs
+*.log
+
+# Mac
+.DS_Store
+
+# Uploads (fotos)
+backend/uploads/
+
+# Base de datos dumps
+*.sql
+
+# Editor
+.vscode/
+.idea/
