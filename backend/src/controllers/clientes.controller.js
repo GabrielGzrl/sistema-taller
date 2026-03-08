@@ -1,8 +1,7 @@
 const db = require('../db');
 
-// ===============================
 // CREAR CLIENTE
-// ===============================
+
 exports.crearCliente = async (req, res) => {
   const { nombre, telefono, email } = req.body;
 
@@ -27,9 +26,9 @@ exports.crearCliente = async (req, res) => {
   }
 };
 
-// ===============================
+
 // OBTENER CLIENTES
-// ===============================
+
 exports.obtenerClientes = async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM clientes');

@@ -1,7 +1,7 @@
 // ===============================
 // CONFIG + SEGURIDAD GLOBAL
 // ===============================
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'sistema-taller-production.up.railway.app';
 const token = localStorage.getItem('token');
 
 // 🔐 Protección de página

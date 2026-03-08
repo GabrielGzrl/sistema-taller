@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'sistema-taller-production.up.railway.app';
 
 function money(n) {
   return Number(n || 0).toFixed(2);
