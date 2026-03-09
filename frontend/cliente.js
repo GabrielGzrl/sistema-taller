@@ -1,4 +1,4 @@
-const API_URL = 'https://sistema-taller-production.up.railway.app/';
+const API_URL = 'https://sistema-taller-production.up.railway.app/api';
 
 function money(n) {
   return Number(n || 0).toFixed(2);
