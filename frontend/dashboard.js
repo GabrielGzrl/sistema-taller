@@ -1,7 +1,7 @@
 
 // CONFIG
 
-const API_URL = 'sistema-taller-production.up.railway.app';
+const API_URL = 'https://taller-production.up.railway.app/api';
 
 function getToken() {
   return localStorage.getItem('token');
