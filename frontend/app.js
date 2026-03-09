@@ -1,7 +1,7 @@
 // ===============================
 // CONFIG + SEGURIDAD GLOBAL
 // ===============================
-const API_URL = 'https://taller-production.up.railway.app/api';
+const API_URL = 'https://sistema-taller-production.up.railway.app/';
 const token = localStorage.getItem('token');
 
 // 🔐 Protección de página

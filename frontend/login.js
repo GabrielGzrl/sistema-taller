@@ -1,4 +1,4 @@
-const API_URL = 'https://taller-production.up.railway.app/api';
+const API_URL = 'https://sistema-taller-production.up.railway.app/';
 
 async function login() {
   const email = document.getElementById('email').value;
